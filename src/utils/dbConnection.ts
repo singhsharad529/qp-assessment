@@ -6,7 +6,7 @@ dotenv.config();
 // Create & initialize database before starting the connection pool
 const initDB = async () => {
   try {
-    // Connect to MySQL **without selecting a database first**
+    // Connect to MySQL without selecting a database first
     const connection = await mysql.createConnection({
       host: process.env.MYSQL_HOST,
       user: process.env.MYSQL_USER,
@@ -61,5 +61,5 @@ const initDB = async () => {
   }
 };
 
-// ✅ Create & export connection pool (global variable)
+//Create & export connection pool (global variable)
 export const pool = await initDB();

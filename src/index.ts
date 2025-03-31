@@ -9,6 +9,7 @@ import groceryRoutes from "./routes/groceryRoutes.js";
 
 dotenv.config();
 
+// verifying db connection
 pool
   .query("SELECT 1")
   .then(() => {
@@ -29,8 +30,6 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Grocery Booking APIs");
 });
 
-// questionpro123
-
 app.use("/api/v1/groceries", groceryRoutes);
 
 // check invalid path
@@ -47,5 +46,5 @@ app.use(errorHandler);
 
 // server running on defined PORT
 app.listen(PORT, () => {
-  console.log("Node Server is listening on PORT " + PORT);
+  console.log("Server is listening on PORT " + PORT);
 });
