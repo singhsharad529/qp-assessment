@@ -15,6 +15,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Working with types and watch command");
 });
 
+// check invalid path
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   const err = new CustomError(
     `Can't find ${req.originalUrl} on the Server!`,
@@ -23,8 +24,10 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(err);
 });
 
+// error handler middleware
 app.use(errorHandler);
 
+// server running on defined PORT
 app.listen(PORT, () => {
   console.log("Node Server is listening on PORT " + PORT);
 });

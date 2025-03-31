@@ -1,3 +1,4 @@
+// Custom Error Hanadler Class Inheriting Built in Error Class
 class CustomError extends Error {
   statusCode: number;
   isOperational: boolean;
