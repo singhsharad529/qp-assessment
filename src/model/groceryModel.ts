@@ -1,4 +1,4 @@
-import { FieldPacket, QueryResult, RowDataPacket } from "mysql2";
+import { RowDataPacket } from "mysql2";
 import { pool } from "../utils/dbConnection.js";
 
 // get all the grocery Items from the DB

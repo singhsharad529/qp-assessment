@@ -6,6 +6,7 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import { pool } from "./utils/dbConnection.js";
 // importing routes
 import groceryRoutes from "./routes/groceryRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/api/v1/groceries", groceryRoutes);
+app.use("/api/v1/order", orderRoutes);
 
 // check invalid path
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
