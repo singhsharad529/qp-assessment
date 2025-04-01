@@ -3,13 +3,13 @@ import { pool } from "../utils/dbConnection.js";
 import { OrderType } from "../utils/types.js";
 
 // add a single grocery item in the DB
-export const placeOrderFromDB = async (items: OrderType[]) => {
+export const placeOrderFromDB = async (items: OrderType[], userid: number) => {
   console.log("orderdetails", items);
 
   const groceryIdsJson = JSON.stringify(items);
   const [order] = await pool.query(
-    "INSERT INTO orders (grocery_ids) VALUES (?)",
-    [groceryIdsJson]
+    "INSERT INTO orders (userid,grocery_ids) VALUES (?,?)",
+    [userid, groceryIdsJson]
   );
 
   for (const item of items) {
@@ -20,4 +20,20 @@ export const placeOrderFromDB = async (items: OrderType[]) => {
   }
 
   return order;
+};
+
+// add a single grocery item in the DB
+export const getAllOrdersFromDB = async (): Promise<RowDataPacket[]> => {
+  const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM orders");
+  return rows;
+};
+
+export const getUserOrdersFromDB = async (
+  userid: string
+): Promise<RowDataPacket[]> => {
+  const [rows] = await pool.query<RowDataPacket[]>(
+    "SELECT * FROM orders where userid=?",
+    [userid]
+  );
+  return rows;
 };

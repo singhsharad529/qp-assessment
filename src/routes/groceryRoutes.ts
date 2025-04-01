@@ -6,13 +6,14 @@ import {
   removeGroceryItem,
   updateGroceryItem,
 } from "../controller/groceryController.js";
+import { checkRole } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 router.get("/", getGroceries);
 router.get("/:groceryID", getGroceryItem);
-router.post("/", addGroceryItem);
-router.delete("/:groceryID", removeGroceryItem);
-router.put("/:groceryID", updateGroceryItem);
+router.post("/", checkRole, addGroceryItem);
+router.delete("/:groceryID", checkRole, removeGroceryItem);
+router.put("/:groceryID", checkRole, updateGroceryItem);
 
 export default router;
