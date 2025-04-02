@@ -2,41 +2,35 @@
 
 ## 📌 Overview
 
-This is a Grocery Store Management application that allows users to browse and purchase groceries, while administrators can manage products, orders, and users.
-
-## 🌍 Live URL
-
-You can access the live application at:
-
-**[Your App URL Here](#)**
+Technical Assessment Submission: Grocery Booking API
 
 ---
 
 ## ⚡ API Endpoints
 
-### 🛠️ Admin APIs (Requires Authentication)
+### 🛠️ Grocery APIs (Requires Simple authentication , role:"admin" in body)
 
-| Method   | Endpoint                  | Description            |
-| -------- | ------------------------- | ---------------------- |
-| `POST`   | `/api/admin/login`        | Admin login            |
-| `POST`   | `/api/admin/products`     | Add a new product      |
-| `PUT`    | `/api/admin/products/:id` | Update product details |
-| `DELETE` | `/api/admin/products/:id` | Remove a product       |
-| `GET`    | `/api/admin/orders`       | View all orders        |
-| `PUT`    | `/api/admin/orders/:id`   | Update order status    |
+| Method   | Endpoint                       | Description                   |
+| -------- | ------------------------------ | ----------------------------- |
+| `GET`    | `/api/v1/groceries/`           | All Grocery Item (Public API) |
+| `GET`    | `/api/v1/groceries/:groceryID` | Get a Grocery Item            |
+| `POST`   | `/api/v1/groceries/`           | Add Grocery Item              |
+| `DELETE` | `/api/v1/groceries/:groceryID` | Delete a Grocery Item         |
+| `PUT`    | `/api/v1/groceries/:groceryID` | Update a grocery Item         |
 
-### 🌐 Public APIs (Accessible by Users)
+### 🌐 Orders APIs (Accessible by Users)
 
-| Method | Endpoint              | Description         |
-| ------ | --------------------- | ------------------- |
-| `GET`  | `/api/products`       | Fetch all products  |
-| `GET`  | `/api/products/:id`   | Get product details |
-| `POST` | `/api/users/register` | Register a new user |
-| `POST` | `/api/users/login`    | User login          |
-| `POST` | `/api/orders`         | Place a new order   |
-| `GET`  | `/api/orders/:id`     | View order details  |
+| Method | Endpoint                | Description              |
+| ------ | ----------------------- | ------------------------ |
+| `GET`  | `/api/v1/order/`        | Fetch all Orders         |
+| `GET`  | `/api/v1/order/:userid` | Get Single Order Details |
+| `POST` | `/api/v1/order/`        | Place a new Order        |
 
 ---
+
+### 🌐 Database Used
+
+Used MySQL Database
 
 ## 🛠️ Installation & Setup
 
@@ -45,8 +39,8 @@ You can access the live application at:
 #### 1️⃣ Clone the Repository
 
 ```sh
- git clone https://github.com/your-repo/grocery-app.git
- cd grocery-app
+ git clone https://github.com/singhsharad529/qp-assessment.git
+ cd qp-assessment
 ```
 
 #### 2️⃣ Install Dependencies
@@ -63,11 +57,20 @@ Create a `.env` file and set the following:
 PORT=5000
 MYSQL_HOST=localhost
 MYSQL_USER=root
-MYSQL_PASS=yourpassword
-MYSQL_DB=grocery
+MYSQL_PASS=Sharad123
+MYSQL_DB=questionpro
+MYSQL_PORT=3306
 ```
 
 #### 4️⃣ Start the Application
+
+##### Terminal 1 (Compile Typescript)
+
+```sh
+ npm run watch
+```
+
+##### Terminal 2 (Run application in Developement Mode)
 
 ```sh
  npm run dev
@@ -80,7 +83,7 @@ MYSQL_DB=grocery
 #### 1️⃣ Build and Start Containers
 
 ```sh
-docker-compose up --build
+docker-compose up --build -d
 ```
 
 #### 2️⃣ Access the Application
@@ -100,9 +103,5 @@ docker-compose down
 
 - **Backend**: Node.js, Express.js
 - **Database**: MySQL
-- **Authentication**: JWT
+- **Authentication**: Basci Middleware
 - **Containerization**: Docker, Docker Compose
-
-For any issues, feel free to create a GitHub issue!
-
-🚀 **Happy Coding!** 🎉
