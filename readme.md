@@ -112,5 +112,5 @@ docker-compose down
 
 - **Backend**: Node.js, Express.js
 - **Database**: MySQL
-- **Authentication**: Basci Middleware
+- **Authentication**: Basic Middleware
 - **Containerization**: Docker, Docker Compose
