@@ -28,7 +28,7 @@ Technical Assessment Submission: Grocery Booking API
 
 ---
 
-### 🌐 Database Used
+### 📅 Database Used
 
 Used MySQL Database
 
@@ -43,13 +43,15 @@ Used MySQL Database
  cd qp-assessment
 ```
 
-#### 2️⃣ Install Dependencies
+#### 2️⃣ Install and Setup MySQL on your local machine
+
+#### 3️⃣ Install Dependencies
 
 ```sh
  npm install
 ```
 
-#### 3️⃣ Configure Environment Variables
+#### 4️⃣ Configure Environment Variables
 
 Create a `.env` file and set the following:
 
@@ -62,7 +64,7 @@ MYSQL_DB=questionpro
 MYSQL_PORT=3306
 ```
 
-#### 4️⃣ Start the Application
+#### 5️⃣ Start the Application
 
 ##### Terminal 1 (Compile Typescript)
 
@@ -80,18 +82,25 @@ MYSQL_PORT=3306
 
 ### 🔹 With Docker
 
-#### 1️⃣ Build and Start Containers
+#### 1️⃣ Clone the Repository
+
+```sh
+ git clone https://github.com/singhsharad529/qp-assessment.git
+ cd qp-assessment
+```
+
+#### 2️⃣ Build and Start Containers
 
 ```sh
 docker-compose up --build -d
 ```
 
-#### 2️⃣ Access the Application
+#### 3️⃣ Access the Application
 
 - **API**: `http://localhost:5000`
 - **MySQL**: Runs inside the Docker container (`grocery-mysql`)
 
-#### 3️⃣ Stop Containers
+#### 4️⃣ Stop Containers
 
 ```sh
 docker-compose down
