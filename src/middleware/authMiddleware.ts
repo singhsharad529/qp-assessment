@@ -11,7 +11,6 @@ export const checkRole = asyncErrorHandler(
     const { role } = req.body; // Assume userId is sent in the request body
     if (!role || role === undefined)
       return res.status(400).json({ message: "User Role is required" });
-    console.log("role", role);
 
     if (role === "admin") {
       console.log("inside admin");
