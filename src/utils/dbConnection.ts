@@ -27,7 +27,7 @@ const initDB = async () => {
       user: process.env.MYSQL_USER,
       password: process.env.MYSQL_PASS,
       database: dbName,
-      port: Number(process.env.MYSQL_PORT) || 3306,
+      port: Number(process.env.MYSQL_PORT) || 3307,
       waitForConnections: true,
       connectionLimit: 10,
       queueLimit: 0,
@@ -50,6 +50,7 @@ const initDB = async () => {
       CREATE TABLE IF NOT EXISTS orders (
         id INT AUTO_INCREMENT PRIMARY KEY,
         grocery_ids JSON NOT NULL, 
+        userid INT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);

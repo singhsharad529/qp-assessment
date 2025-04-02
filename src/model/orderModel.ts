@@ -1,25 +1,53 @@
 import { RowDataPacket } from "mysql2";
 import { pool } from "../utils/dbConnection.js";
 import { OrderType } from "../utils/types.js";
+import CustomError from "../utils/customError.js";
 
 // add a single grocery item in the DB
 export const placeOrderFromDB = async (items: OrderType[], userid: number) => {
-  console.log("orderdetails", items);
+  // Start a transaction
+  const conn = await pool.getConnection();
+  try {
+    await conn.beginTransaction();
 
-  const groceryIdsJson = JSON.stringify(items);
-  const [order] = await pool.query(
-    "INSERT INTO orders (userid,grocery_ids) VALUES (?,?)",
-    [userid, groceryIdsJson]
-  );
+    // Check stock for each item
+    for (const item of items) {
+      const [rows] = await conn.query(
+        "SELECT stock FROM groceries WHERE id = ?",
+        [item.id]
+      );
 
-  for (const item of items) {
-    await pool.query("UPDATE groceries SET stock = stock - ? WHERE id = ?", [
-      item.quantity,
-      item.id,
-    ]);
+      const stock = rows[0]?.stock || 0;
+      if (stock < item.quantity) {
+        throw new CustomError(`Insufficient stock for item ID ${item.id}`, 400);
+      }
+    }
+
+    // Insert the order
+    const groceryIdsJson = JSON.stringify(items);
+    const [order] = await conn.query(
+      "INSERT INTO orders (userid, grocery_ids) VALUES (?,?)",
+      [userid, groceryIdsJson]
+    );
+
+    // Update stock
+    for (const item of items) {
+      await conn.query("UPDATE groceries SET stock = stock - ? WHERE id = ?", [
+        item.quantity,
+        item.id,
+      ]);
+    }
+
+    // Commit transaction
+    await conn.commit();
+    return order;
+  } catch (error) {
+    // Rollback in case of an error
+    await conn.rollback();
+    throw error;
+  } finally {
+    conn.release();
   }
-
-  return order;
 };
 
 // add a single grocery item in the DB

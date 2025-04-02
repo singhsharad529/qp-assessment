@@ -1,0 +1,51 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: grocery-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Sharad123
+      MYSQL_DATABASE: questionpro
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-pSharad123",
+        ]
+      interval: 5s
+      retries: 10
+      start_period: 30s
+      timeout: 5s
+
+  app:
+    build: .
+    container_name: grocery-app
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      MYSQL_PORT: 3306
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASS: Sharad123
+      MYSQL_DB: questionpro
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  mysql_data:
