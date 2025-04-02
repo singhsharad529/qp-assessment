@@ -57,11 +57,11 @@ Create a `.env` file and set the following:
 
 ```
 PORT=5000
-MYSQL_HOST=localhost
-MYSQL_USER=root
-MYSQL_PASS=Sharad123
-MYSQL_DB=questionpro
-MYSQL_PORT=3306
+MYSQL_HOST=<HostName>
+MYSQL_USER=<User>
+MYSQL_PASS=<Password>
+MYSQL_DB=<Database>
+MYSQL_PORT=<Port on which MySQL is running , default: 3306>
 ```
 
 #### 5️⃣ Start the Application
